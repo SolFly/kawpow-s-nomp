@@ -15,7 +15,7 @@ Usage of this software requires abilities with sysadmin, database admin, coin da
 
 Please join our Discord to follow development. Any support questions can be answered here quickly as well.
 
-https://discord.gg/4mVaTsH
+https://discord.gg/YPbeDVx
 
 # Usage
 
