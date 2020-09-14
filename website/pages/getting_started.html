@@ -1,0 +1,199 @@
+<div id="holder">
+    <div class="pure-menu pure-menu-open gettingStartedMenu">
+        <span class="pure-menu-heading">Getting Started</span>
+
+        <ul class="pure-menu-list">
+            <li class="pure-menu-item"><a href="#poolDetails" class="pure-menu-link">Pool Details</a></li>
+        </ul>
+    </div>
+
+    <div id="menu">
+        {{? (function(){
+                if (!it.portalConfig.switching) return false;
+                for (var p in it.portalConfig.switching){
+                    if (it.portalConfig.switching[p].enabled)
+                        return true;
+                }
+                return false;
+            })()
+        }}
+        <div class="menuHeader">Coin-Switching Ports</div>
+        {{?}}
+
+        <div class="menuList">
+        {{ for (var p in it.portalConfig.switching){
+            if (!it.portalConfig.switching[p].enabled) continue;
+            var info = {
+                algo: p,
+                ports: {},
+                host: it.portalConfig.website.stratumHost
+            };
+            info.ports[it.portalConfig.switching[p].port] = {diff: it.portalConfig.switching[p].diff};
+            info = JSON.stringify(info).replace(/"/g, '&quot;');
+        }}
+            <a href="#" class="poolOption" data-info="{{=info}}">{{=p}}</a>
+        {{ } }}
+        </div>
+
+        <div class="menuHeader" id="poolDetails">Miner Configuration</div>
+        <div class="menuList" id="coinList">
+            {{ if (it.portalConfig.gettingStartedPopups) { }}
+                {{ for (var pool in it.poolsConfigs) {
+                    var info = JSON.stringify({
+                        coin: it.poolsConfigs[pool].coin,
+                        algo: it.poolsConfigs[pool].coin.algorithm,
+                        ports: it.poolsConfigs[pool].ports,
+                        host: it.portalConfig.website.stratumHost
+                    }).replace(/"/g, '&quot;');
+                }}
+                <a href="#" class="poolOption" data-info="{{=info}}">{{=pool}}</a>
+                {{ } }}
+            {{ } else { }}
+                {{ for (var pool in it.poolsConfigs) { }}
+                    {{if (String(pool) == 'pirate') { continue; } }}
+                    <code>
+                        <div class="coinInfoHeader"><span class="coinInfoName">{{=it.poolsConfigs[pool].coin.name}}</span> Configuration:</div>
+                        <div class="coinInfoRows">
+                            <div class="coinInfoRowKeys">
+                                <div>Username:</div>
+                                <div>Password:</div>
+                                <div>Algorithm:</div>
+                                {{ for (var port in it.poolsConfigs[pool].ports) { }}
+                                    <div class="coinInfoData">{{= it.poolsConfigs[pool].ports[port].label ? it.poolsConfigs[pool].ports[port].label : 'URL'}} <span class="coinInfoSubtle">(diff {{=it.poolsConfigs[pool].ports[port].diff}})</span></div>
+                                {{ } }}
+                            </div>
+                            <div class="coinInfoRowValues">
+                                <div class="coinInfoUsername">
+                                    {{ if (it.poolsConfigs[pool].coin && it.poolsConfigs[pool].coin.privateChain) { }}
+                                        your {{=it.poolsConfigs[pool].coin.name}} <b style="color:#C99631;">zs1</b> sapling address<br>
+                                       
+                                    {{ } else if (it.poolsConfigs[pool].coin) { }}
+                                        your {{=it.poolsConfigs[pool].coin.name}} wallet address
+                                    {{ } else { }}
+                                        your public key
+                                    {{ } }}
+                                </div>
+                                <div>anything</div>
+                                <div>{{=it.poolsConfigs[pool].coin.algorithm}}</div>
+                                {{ for (var port in it.poolsConfigs[pool].ports) { }}
+                                    <div class="coinInfoData">stratum+tcp://{{=it.portalConfig.website.stratumHost}}:{{=port}}</div>
+                                {{ } }}
+                            </div>
+                        </div>
+                    </code>
+                {{ } }}
+
+                <div class="content">
+                    If you have multiple mining rigs you can add a label at the end of your username to see stats broken down by rig on the worker stats page.
+                </div>
+            {{ } }}
+        </div>
+
+     
+    <h2>Miners</h2>
+
+    <b>[1% fee] [NVidia] ZEnemy [ <a href="https://bitcointalk.org/index.php?topic=3378390.0">Download</a> ]</b>
+    <pre>    :loop
+    z-enemy.exe -a kawpow -o stratum+tcp://{{=it.portalConfig.website.stratumHost}}:{{=port}} -u RHMKPy3Ana5NyzTgo6qWXXMiHAxzPyMgG1
+    goto loop
+    </pre>
+
+    <b>[2% fee] [AMD] nanominer [ <a href="https://bitcointalk.org/index.php?topic=5089248.0">Download</a> ]</b>
+    <br>commandline:
+    <pre>    :loop
+    nanominer.exe -noLog true -memTweak 0 -algo Kawpow -wallet RHMKPy3Ana5NyzTgo6qWXXMiHAxzPyMgG1 -coin rvn -rigName worker1 -pool1 {{=it.portalConfig.website.stratumHost}}:{{=port}} -webPort -3333
+    goto loop
+    </pre>
+    or using config:
+    <pre>    noLog=true
+    memTweak=0
+    [Kawpow]
+    wallet=RHMKPy3Ana5NyzTgo6qWXXMiHAxzPyMgG1
+    coin=rvn
+    rigName=worker1
+    pool1={{=it.portalConfig.website.stratumHost}}:{{=port}}
+    webPort=-3333
+    </pre>
+
+    <b>[0% fee] [NVidia (driver 441.22+)] KawPowMiner v.1.3.0+ [<a href="https://ravenminerbucket.s3-us-west-2.amazonaws.com/KawPowMiner_RavenMiner.zip">Download from RavenMiner</a>]  [<a href="https://github.com/RavenCommunity/kawpowminer/releases">Github Download</a>]</b>
+    <pre>    :loop
+    kawpowminer.exe -U -P stratum+tcp://{{=it.portalConfig.website.stratumHost}}:{{=port}}
+    goto loop
+    </pre>
+
+    <b>[2% fee] [AMD/NVidia] NBMiner [ <a href="https://bitcointalk.org/index.php?topic=5099379">Download</a> ]</b>
+    <pre>    :loop
+    nbminer.exe -a kawpow -o stratum+tcp://{{=it.portalConfig.website.stratumHost}}:{{=port}} -u RHMKPy3Ana5NyzTgo6qWXXMiHAxzPyMgG1
+    goto loop
+    </pre>
+
+    <b>[1% fee] [NVidia] TRex [ <a href="https://bitcointalk.org/index.php?topic=4432704.0">Download</a> ]</b>
+    <pre>    :loop
+    t-rex.exe -a kawpow -o stratum+tcp://{{=it.portalConfig.website.stratumHost}}:{{=port}} -u RHMKPy3Ana5NyzTgo6qWXXMiHAxzPyMgG1
+    goto loop
+    </pre>
+
+    <b>[1% fee] [NVidia] TT-Miner [ <a href="https://bitcointalk.org/index.php?topic=5025783">Download</a> ]</b>
+    <pre>    :loop
+    TT-Miner.exe -coin rvn -P {{=it.portalConfig.website.stratumHost}}:{{=port}}
+    goto loop
+    </pre>
+
+</div>
+{{ if (it.portalConfig.gettingStartedPopups) { }}
+    <a href="#" id="coinInfoBackground" class="hidden"></a>
+
+    <div id="coinInfo" class="hidden">
+        <a href="#" id="coinInfoClose">×</a>
+        <div><span class="coinInfoName"></span> Configuration:</div>
+        <div id="coinInfoRows">
+            <div id="coinInfoRowKeys">
+                <div>Username:</div>
+                <div>Password:</div>
+            </div>
+            <div id="coinInfoRowValues">
+                <div id="coinInfoUsername"></div>
+                <div>anything</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showCoinConfig(info){
+
+            var htmlKeys = '<div class="coinInfoData">Algorithm:</div>';
+            var htmlValues = '<div class="coinInfoData">' + info.algo + '</div>';
+
+            for (var port in info.ports){
+                htmlKeys += '<div class="coinInfoData">URL <span class="coinInfoSubtle">(difficulty ' + info.ports[port].diff + ')</span>:</div>';
+                htmlValues += '<div class="coinInfoData">stratum+tcp://' + info.host + ':' + port + '</div>';
+            }
+
+            if (info.coin && info.coin.privateChain) {
+                $('#coinInfoUsername').html('your ' + info.coin.name + ' <b style="color:#C99631;">Z</b> wallet address');
+            } else if (info.coin) {
+                $('#coinInfoUsername').text('your ' + info.coin.name + ' wallet address');
+            } else {
+                $('#coinInfoUsername').text('your public key');
+            }
+            $('.coinInfoData').remove();
+            $('#coinInfoRowKeys').append(htmlKeys);
+            $('#coinInfoRowValues').append(htmlValues);
+        }
+
+        $('.poolOption').click(function(event){
+            event.preventDefault();
+            showCoinConfig($(this).data('info'));
+            $('#coinInfoBackground,#coinInfo').removeClass('hidden');
+            $('#coinInfoBackground').css('opacity', 0.7);
+            return false;
+        });
+
+        $('#coinInfoBackground,#coinInfoClose').click(function(event){
+            event.preventDefault();
+            $('#coinInfoBackground,#coinInfo').addClass('hidden');
+            $('#coinInfoBackground').css('opacity', 0.0);
+            return false;
+        });
+    </script>
+{{ } }}

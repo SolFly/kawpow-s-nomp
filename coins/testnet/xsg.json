@@ -1,0 +1,21 @@
+{
+    "name": "snowgem_testnet",
+    "symbol": "xsgt",
+    "algorithm": "equihash",
+    "parameters": {
+        "N": 144,
+        "K": 5,
+        "personalization": "sngemPoW"
+    },
+    "requireShielding": true,
+    "payFoundersReward": true,
+    "peerMagic": "24c82764",
+    "sapling": true,
+    "txfee": 0.0004,
+
+    "explorer": {
+        "txURL": "http://testnet.explorer.snowgem.org/tx/",
+        "blockURL": "http://testnet.explorer.snowgem.org/block/",
+        "_comment_explorer": "This is the coin's explorer full base url for transaction and blocks i.e. (https://explorer.coin.com/tx/). The pool will automatically add the transaction id or block id at the end."
+    }
+}
