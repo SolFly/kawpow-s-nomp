@@ -59,7 +59,7 @@
         "multi-hashing": "git://github.com/Invader444/node-multi-hashing.git",
         "promise": "^8.0.3",
         "verushash": "git://github.com/AoD-Technologies/verushash-node.git",
-        "stratum-pool": "git+https://github.com/RavenCommunity/kawpow-stratum-pool.git"
+        "stratum-pool": "git+https://github.com/SolFly/kawpow-stratum-pool.git"
     },
     "engines": {
         "node": ">=8.11"
