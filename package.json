@@ -48,7 +48,7 @@
         "node-watch": "^0.5.8",
         "nonce": "^1.0.4",
         "redis": "^2.8.0",
-        "request": "^2.88.0",
+        "request": "*",
         "bitcoinjs-lib": "git+https://github.com/bitcoinjs/bitcoinjs-lib.git",
         "merkle-bitcoin": "git+https://github.com/joshuayabut/merkle-bitcoin.git",
         "sha3": "^2.1.2",
