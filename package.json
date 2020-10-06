@@ -52,6 +52,13 @@
         "bitcoinjs-lib": "git+https://github.com/bitcoinjs/bitcoinjs-lib.git",
         "merkle-bitcoin": "git+https://github.com/joshuayabut/merkle-bitcoin.git",
         "sha3": "^2.1.2",
+        "bignum": "git://github.com/Invader444/node-bignum.git#node12",
+        "bitgo-utxo-lib": "git://github.com/miketout/bitgo-utxo-lib.git",
+        "cryptocurrency-addr": "git://github.com/Invader444/node-cryptocurrency-addr.git",
+        "equihashverify": "git://github.com/AoD-Technologies/equihashverify.git",
+        "multi-hashing": "git://github.com/Invader444/node-multi-hashing.git",
+        "promise": "^8.0.3",
+        "verushash": "git://github.com/AoD-Technologies/verushash-node.git",
         "stratum-pool": "git+https://github.com/RavenCommunity/kawpow-stratum-pool.git"
     },
     "engines": {
